@@ -1,0 +1,17 @@
+@import './base.css';
+
+.avatar {
+  max-width: 60px;
+}
+
+.maincontent {
+  padding: 3px;
+}
+
+.quoted .embed-image {
+  max-width: 200px;
+}
+
+.embed-image {
+  max-width: 500px;
+}
