@@ -3,6 +3,7 @@ import moment from 'moment'
 import QuotedPost from './QuotedPost.vue'
 import PostEmbed from './PostEmbed.vue'
 import { useReplyToStore } from '@/stores/replyTo'
+import PostFooter from './PostFooter.vue'
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
@@ -68,13 +69,14 @@ const replyStore = useReplyToStore()
           </tr>
           <tr>
             <td height="100%" valign="top" colspan="2">
-              <span class="postbody">
+              <span class="postbody newlineFix">
                 <QuotedPost :post="post.parent" v-if="post.parent" :depth="0" />
                 {{ post.record.text }}
                 <PostEmbed v-if="post.embed" :embed="post.embed" />
               </span>
             </td>
           </tr>
+          <PostFooter :post="post" />
         </tbody>
       </table>
     </td>

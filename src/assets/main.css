@@ -1,5 +1,15 @@
 @import './base.css';
 
+.newlineFix {
+  white-space: pre-wrap; /* or pre-line */
+}
+
+.userbar {
+  display: block;
+  border: 1px solid black;
+  margin-top: 1px;
+}
+
 .avatar {
   max-width: 60px;
 }
