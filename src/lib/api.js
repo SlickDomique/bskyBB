@@ -12,17 +12,12 @@ export const agent = new AtpAgent({
 })
 
 export const getAuthorizedAgent = async () => {
-  try {
-    if (agent.assertAuthenticated()) return agent
-  } catch (e) {
-    const session = JSON.parse(localStorage.getItem('session'))
-    if (session) {
-      await agent.resumeSession(session)
-      return agent
-    }
-    router.push({ name: 'login' })
+  const session = JSON.parse(localStorage.getItem('session'))
+  if (session) {
+    const resumed = await agent.sessionManager.resumeSession(session)
+    if (resumed.success) return agent
   }
-  return agent
+  router.push({ name: 'login' })
 }
 
 export const logOut = async () => {
