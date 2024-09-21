@@ -1,5 +1,6 @@
 <script setup>
 import { useUserProfilesStore } from '@/stores/userProfiles'
+import { parseBBCode } from '@/utils/text'
 import { getUserbar } from '@/utils/userbar'
 import { onMounted, ref } from 'vue'
 // eslint-disable-next-line no-unused-vars
@@ -33,7 +34,7 @@ onMounted(() => {
     <td colspan="2" valign="bottom" align="left">
       <span class="postbody">
         <slot v-if="showDivider">_________________</slot>
-        <div class="newlineFix">{{ currentUser?.description }}</div>
+        <div class="newlineFix" v-html="parseBBCode(currentUser?.description)"></div>
         <img :src="label" v-for="label in labels" :key="label" alt="" class="userbar" />
       </span>
     </td>
