@@ -1,4 +1,5 @@
 <script setup>
+import { parseBBCode } from '@/utils/text'
 import PostEmbed from './PostEmbed.vue'
 
 // eslint-disable-next-line no-unused-vars
@@ -34,7 +35,7 @@ const props = defineProps({
       <tr>
         <td class="quote">
           <QuotedPost :post="post.parent" v-if="post.parent" :depth="depth + 1" />
-          {{ post.post.record.text }}
+          <div v-html="parseBBCode(post.post.record.text)"></div>
           <PostEmbed v-if="post.post.embed" :embed="post.post.embed" />
         </td>
       </tr>
