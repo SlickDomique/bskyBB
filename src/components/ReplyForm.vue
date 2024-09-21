@@ -46,8 +46,19 @@ export default {
       // this.$nextTick(() => textarea.setSelectionRange(cursorPosition + before.length))
     },
     async handlePosting() {
+      const getRoot = (post) => {
+        if (post.parent && post.parent.parent) {
+          return getRoot(post.parent.parent)
+        }
+        if (post.parent && post.parent.post) {
+          return post.parent.post
+        }
+        if (post.post) return post.post
+        return post
+      }
       try {
         const agent = await getAuthorizedAgent()
+        const root = getRoot(this.replyToStore.replyTo)
         const post = await agent.post({
           text: this.post,
           reply: this.replyToStore.replyTo
@@ -57,8 +68,8 @@ export default {
                   uri: this.replyToStore.replyTo.uri,
                 },
                 root: {
-                  cid: this.replyToStore.replyTo.cid,
-                  uri: this.replyToStore.replyTo.uri,
+                  cid: root.cid,
+                  uri: root.uri,
                 },
               }
             : null,
