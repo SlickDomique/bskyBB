@@ -8,6 +8,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  showDivider: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const labels = ref([])
@@ -27,8 +31,8 @@ onMounted(() => {
 <template>
   <tr v-if="post.author.labels.length > 0 || currentUser?.description">
     <td colspan="2" valign="bottom" align="left">
-      <span class="postbody"
-        >_________________
+      <span class="postbody">
+        <slot v-if="showDivider">_________________</slot>
         <div class="newlineFix">{{ currentUser?.description }}</div>
         <img :src="label" v-for="label in labels" :key="label" alt="" class="userbar" />
       </span>

@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from 'vue'
-import FeedPosts from './FeedPosts.vue'
+import SinglePost from './SinglePost.vue'
 import ReplyForm from './ReplyForm.vue'
 
 import { useReplyToStore } from '@/stores/replyTo'
@@ -23,7 +23,7 @@ onMounted(() => {
 <template>
   <ReplyForm header="Create thread" />
   <table class="forumline">
-    <FeedPosts v-for="post in props.posts" :key="post.cid" :post="post" />
+    <SinglePost v-for="post in props.posts" :key="post.cid" :post="post" :linkToThread="true" />
   </table>
 </template>
 

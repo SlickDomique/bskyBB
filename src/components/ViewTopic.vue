@@ -1,5 +1,5 @@
 <script setup>
-import TopicPost from './TopicPost.vue'
+import SinglePost from './SinglePost.vue'
 import ReplyForm from './ReplyForm.vue'
 import { useReplyToStore } from '@/stores/replyTo'
 import { onMounted } from 'vue'
@@ -19,7 +19,7 @@ onMounted(() => {
 
 <template>
   <table class="forumline">
-    <TopicPost v-for="post in props.posts" :key="post.cid" :post="post" />
+    <SinglePost v-for="post in props.posts" :key="post.cid" :post="post" />
   </table>
   <ReplyForm />
 </template>

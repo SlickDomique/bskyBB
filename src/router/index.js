@@ -42,6 +42,14 @@ const router = createRouter({
         uri: route.query.t,
       }),
     },
+    {
+      path: '/forum/profile.php',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue'),
+      props: (route) => ({
+        uri: route.query.u,
+      }),
+    },
   ],
 })
 

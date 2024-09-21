@@ -11,6 +11,18 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  hasReplyButton: {
+    type: Boolean,
+    default: true,
+  },
+  linkToThread: {
+    type: Boolean,
+    default: false,
+  },
+  linkToProfile: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const replyStore = useReplyToStore()
@@ -24,15 +36,20 @@ const replyStore = useReplyToStore()
   <tr></tr>
   <tr>
     <td valign="top" class="row1" nowrap="nowrap" width="150">
-      <span class="name"
-        ><b>
-          <a class="name" style="font-size: 12">{{ post.author.displayName }}</a>
-        </b>
-        <br />
-      </span>
-      <span class="postdetails">
-        <img :src="post.author.avatar" class="avatar" alt="" /><br /><br />
-      </span>
+      <component
+        :to="`/forum/profile.php?u=${post.author.did}`"
+        :is="linkToProfile ? 'RouterLink' : 'slot'"
+      >
+        <span class="name"
+          ><b>
+            <a class="name" style="font-size: 12">{{ post.author.displayName }}</a>
+          </b>
+          <br />
+        </span>
+        <span class="postdetails">
+          <img :src="post.author.avatar" class="avatar" alt="" /><br /><br />
+        </span>
+      </component>
     </td>
     <td class="row1" width="100%" valign="top">
       <table width="100%" cellspacing="0" cellpadding="0">
@@ -44,7 +61,7 @@ const replyStore = useReplyToStore()
                 >Sent: {{ moment(post.record.createdAt).format('LLL') }}&nbsp; &nbsp;</span
               >
             </td>
-            <td valign="top" align="right" nowrap="nowrap">
+            <td valign="top" align="right" nowrap="nowrap" v-if="hasReplyButton">
               <a
                 href="#reply"
                 @click="
@@ -67,16 +84,21 @@ const replyStore = useReplyToStore()
               <span class="gensmall"><hr /></span>
             </td>
           </tr>
-          <tr>
-            <td height="100%" valign="top" colspan="2">
-              <span class="postbody newlineFix">
-                <QuotedPost :post="post.parent" v-if="post.parent" :depth="0" />
-                {{ post.record.text }}
-                <PostEmbed v-if="post.embed" :embed="post.embed" />
-              </span>
-            </td>
-          </tr>
-          <PostFooter :post="post" />
+          <component
+            :to="`/forum/viewtopic.php?t=${post.uri}`"
+            :is="linkToThread ? 'RouterLink' : 'slot'"
+          >
+            <tr>
+              <td height="100%" valign="top" colspan="2">
+                <span class="postbody newlineFix">
+                  <QuotedPost :post="post.parent" v-if="post.parent" :depth="0" />
+                  {{ post.record.text }}
+                  <PostEmbed v-if="post.embed" :embed="post.embed" />
+                </span>
+              </td>
+            </tr>
+            <PostFooter :post="post" />
+          </component>
         </tbody>
       </table>
     </td>
