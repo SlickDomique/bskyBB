@@ -21,6 +21,10 @@ const router = createRouter({
   },
   routes: [
     {
+      path: '/',
+      redirect: '/forum/index.php',
+    },
+    {
       path: '/forum/index.php',
       name: 'index',
       component: IndexView,
