@@ -25,3 +25,14 @@
 .embed-image {
   max-width: 500px;
 }
+
+img.emoji {
+  max-width: 15px;
+  max-height: 15px;
+}
+
+.replyForm-emojis img {
+  cursor: pointer;
+  margin-top: 3px;
+  margin-right: 3px;
+}

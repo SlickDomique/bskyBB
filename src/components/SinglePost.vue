@@ -5,6 +5,8 @@ import PostEmbed from './PostEmbed.vue'
 import { useReplyToStore } from '@/stores/replyTo'
 import PostFooter from './PostFooter.vue'
 
+import { parseBBCode } from '@/utils/text'
+
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   post: {
@@ -92,7 +94,7 @@ const replyStore = useReplyToStore()
               <td height="100%" valign="top" colspan="2">
                 <span class="postbody newlineFix">
                   <QuotedPost :post="post.parent" v-if="post.parent" :depth="0" />
-                  {{ post.record.text }}
+                  <div v-html="parseBBCode(post.record.text)"></div>
                   <PostEmbed v-if="post.embed" :embed="post.embed" />
                 </span>
               </td>

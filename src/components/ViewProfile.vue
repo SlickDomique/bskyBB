@@ -15,6 +15,10 @@ const props = defineProps({
     required: true,
   },
 })
+
+const getLastAuthorPost = () => {
+  return props.posts.find((post) => post.author.did === props.profile.did)
+}
 </script>
 
 <template>
@@ -57,7 +61,9 @@ const props = defineProps({
                 </td>
                 <td width="100%">
                   <b
-                    ><span class="gen">{{ moment(posts[0].createdAt).format('LLL') }}</span></b
+                    ><span class="gen">{{
+                      moment(getLastAuthorPost()?.createdAt).format('LLL')
+                    }}</span></b
                   >
                 </td>
               </tr>
@@ -95,7 +101,7 @@ const props = defineProps({
               <tr v-if="posts.length > 0">
                 <td valign="middle" nowrap="nowrap"><span class="gen">Description:&nbsp;</span></td>
                 <td width="100%" valign="top">
-                  <PostFooter :post="posts[0]" :showDivider="false" />
+                  <PostFooter :post="getLastAuthorPost()" :showDivider="false" />
                 </td>
               </tr>
             </tbody>

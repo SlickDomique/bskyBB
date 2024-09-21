@@ -15,8 +15,11 @@
   },
   "dependencies": {
     "@atproto/api": "^0.13.6",
+    "@twemoji/api": "^15.1.0",
+    "js-bbcode-parser": "5.1.0",
     "moment": "^2.30.1",
     "pinia": "^2.1.7",
+    "sanitize-html": "^2.13.0",
     "userbar-generator": "^1.0.2",
     "vue": "^3.4.29",
     "vue-gtag": "^2.0.1",

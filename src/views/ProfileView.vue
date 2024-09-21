@@ -31,8 +31,6 @@ async function fetchData() {
       actor: props.uri,
     })
 
-    console.log(actorFeed)
-
     const flattened = actorFeed.data.feed
     const profilesToFetch = {}
 
