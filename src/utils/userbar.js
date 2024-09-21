@@ -35,7 +35,6 @@ const getBinary = (seed, offset = 0) => {
 }
 
 export const getUserbar = async (label) => {
-  console.log(label, label.cid)
   const storedImage = localStorage.getItem(`label_userbar_1.0_${label.cid}`)
   if (storedImage) {
     return storedImage
@@ -43,7 +42,6 @@ export const getUserbar = async (label) => {
 
   const seed = `${label.val}${label.uri}`
   try {
-    console.log(getValueFromArray(seed, 3, ['plain', 'gradient']))
     const image = await userbarGenerator({
       text: label.val,
       textAlign: getValueFromArray(seed, 1, ['left', 'center', 'right']),
