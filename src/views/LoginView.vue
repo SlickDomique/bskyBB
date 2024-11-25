@@ -32,11 +32,11 @@
                     <td colspan="2" align="center">&nbsp;</td>
                   </tr>
                   <tr>
-                    <td width="45%" align="right"><span class="gen">Username:</span></td>
+                    <td width="45%" align="right"><span class="gen">Handle:</span></td>
                     <td><input type="text" id="username" v-model="username" required /></td>
                   </tr>
                   <tr>
-                    <td align="right"><span class="gen">Password:</span></td>
+                    <td align="right"><span class="gen">App password:</span></td>
                     <td><input type="password" id="password" v-model="password" required /></td>
                   </tr>
                   <tr align="center">
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { agent } from '@/lib/api'
+import { agent, fetchService, getService, recreateAgentForService } from '@/lib/api'
 
 export default {
   data() {
@@ -82,6 +82,11 @@ export default {
   methods: {
     async handleLogin() {
       try {
+        const service = await fetchService(this.username)
+
+        if (service !== getService()) {
+          recreateAgentForService(service)
+        }
         await agent.login({
           identifier: this.username,
           password: this.password,
